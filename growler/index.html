@@ -23,7 +23,7 @@
             <textarea v-model="textarea"></textarea>
             <span>The text area contains the following: {{textarea}}</span>
             <br />
-            <div id=pain-box>
+            <div id=pain-box class="width-box">
                 <div class="pain-area">
                     <label for="pain-arms">Arms</label>
                     <input 
@@ -59,10 +59,46 @@
                     />
                 </div>
             </div>
-                <br />
-                <span>
-                    You feel pain in the following areas: {{pain}}
-                </span>
+            <br />
+            <span>
+                You feel pain in the following areas: {{pain}}
+            </span>
+            <br />
+            <div class="width-box">
+                <div class="radio-option">
+                    <label>Male</label>
+                    <input 
+                    type="radio"
+                    value="Male"
+                    v-model="gender"
+                    />
+                </div>
+                <div class="radio-option">
+                    <label>Female</label>
+                    <input 
+                    type="radio"
+                    value="Female"
+                    v-model="gender"
+                    />
+                </div>
+                <div class="radio-option">
+                    <label>Transgender</label>
+                    <input 
+                    type="radio"
+                    value="Transgender"
+                    v-model="gender"
+                    />
+                </div>
+                <div class="radio-option">
+                    <label>Other</label>
+                    <input 
+                    type="radio"
+                    value="Other"
+                    v-model="gender"
+                    />
+                </div>
+            </div>
+            <p>Selected {{gender}}</p>
         </div>
     </body>
     <script src="src/app.js" type="text/javascript"></script>
@@ -82,7 +118,7 @@
     align-items: center;
     justify-content: center;
 }
-#pain-box{
+.width-box{
     display: flex;
     justify-content: space-around;
     align-items: center;

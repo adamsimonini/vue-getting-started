@@ -20,5 +20,6 @@ var app = new Vue({
         userInput: '',
         textarea: '',
         pain: [],
+        gender: '',
     },
 }); 
