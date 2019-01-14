@@ -1,6 +1,94 @@
 <html>
-    <body>
-        <div id="root"></div>>
-    </body>
     <script src="https://unpkg.com/vue@2.5.21/dist/vue.js" type="text/javascript"></script>
+    <body>
+        <div id="root">
+            <h3 v-text="welcome"></h3> <!-- interpolation; semantic binding-->
+            <h2>{{name}}!!</h2> <!-- interpolation; declarative binding -->
+            <div v-once>{{once}}</div> <!-- v-once directive tells virtual dome to skip updating, & helps to optimize Vue performance -->
+            <div v-html="myHtml"></div>  <!-- v-html directive outputs binding as HTML - can be a security risk if dynamically generated -->
+            <h3 v-bind:class="doubleBlue">Double Blue!</h3> <!-- v-bind is required for binding a  -->
+
+            <!-- One way to conditionally apply a css class -->
+            <h3 v-bind:class="{'pinkBox' : boolean }">Pink Box</h3>
+
+
+            <h3 v-bind:style="cokeStyle">Coke is good.</h3> <!-- v-bind is required for binding a  -->
+            <img v-bind:style="cokeImage" :src="imagePointer" />  <!-- v-bind directive outputs binding as HTML - can be a security risk if dynamically generated -->
+            <br />
+
+            <!-- COLLECTING DATA VIA THE V-MODEL DIRECTIVE -->
+            <input v-model="userInput" placeholder="I replicate your input" />
+            <span>You input the following: {{userInput}}</span>
+            <br/>
+            <textarea v-model="textarea"></textarea>
+            <span>The text area contains the following: {{textarea}}</span>
+            <br />
+            <div id=pain-box>
+                <div class="pain-area">
+                    <label for="pain-arms">Arms</label>
+                    <input 
+                        id="pain-arms"
+                        type="checkbox" 
+                        value="Arms"
+                        v-model="pain"
+                    />
+                </div>
+                <div class="pain-area">
+                    <label for="pain-legs">Legs</label>
+                    <input 
+                        type="checkbox" 
+                        value="Legs"
+                        v-model="pain"
+                    />
+
+                </div>
+                <div class="pain-area">
+                    <label for="pain-torso">Torso</label>
+                    <input 
+                        type="checkbox" 
+                        value="Torso"
+                        v-model="pain"
+                    />
+                </div>
+                <div class="pain-area">
+                    <label for="pain-torso">Neck or Head</label>
+                    <input 
+                        type="checkbox" 
+                        value="Head or neck"
+                        v-model="pain"
+                    />
+                </div>
+            </div>
+                <br />
+                <span>
+                    You feel pain in the following areas: {{pain}}
+                </span>
+        </div>
+    </body>
+    <script src="src/app.js" type="text/javascript"></script>
 </html>
+
+<style>
+.doubleBlue{
+    color: blue;
+    border: 1px solid blue;
+}
+.pinkBox{
+    width: 200px;
+    height: 200px;
+    background: pink;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#pain-box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+.pain-areas input{
+    color: red;
+}
+</style>
