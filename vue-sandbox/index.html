@@ -13,7 +13,7 @@
                 <h3>Pass a class from js to element</h3>
                 <h3 v-bind:class="doubleBlue">Double Blue!</h3> <!-- v-bind is required for binding a  -->
 
-                <h2>Conditional binding via a bool, and image source binding</h2>
+                <h2>Conditional binding css class via a bool, and image source binding</h2>
                 <!-- One way to conditionally apply a css class -->
                 <h3 v-bind:class="{'pinkBox' : boolean }">Pink Box</h3>
                 <h3 v-bind:style="cokeStyle">Binding style.</h3> <!-- v-bind is required for binding a  -->
@@ -241,10 +241,10 @@
                 <span v-if="(toggler % 2 == 1)">Using v-show, I only show when the toggler is set to 'odd'</span>
                 <p>For content that needs to be toggled on/off continually, v-show is best. If the element never changes after being shown, v-if is best (as it may not be rendered at runtime, and so can incrase efficiency)</p>
                 <h3>Render Lists Via Looping (v-for)</h3>
-                <input v-model.number="listSize" @keyup="generateList()" placeholder="enter a number"/>
-                <ul id="dynamicList" v-show="listSize > 0">
+                <input type="number" v-model.number="listSize" @keyup="generateList()" placeholder="enter a number"/>
+                <ol id="dynamicList" v-show="listSize > 0">
                     <li v-for="num in list">Dynamically-generated list item</li>
-                </ul>
+                </ol>
             </main>
             <section></section>
         </div>

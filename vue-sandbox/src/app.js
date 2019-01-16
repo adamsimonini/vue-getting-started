@@ -114,11 +114,11 @@ var app = new Vue({
             this.toggler++;
         },
         generateList: function(){
-            if (this.list.length > 1){
-                for(i=0; i<this.list.length; i++){
-                    this.list.removeChild();
-                }
-            }
+            // if (this.list.length > 1){
+            //     for(i=0; i<this.list.length; i++){
+            //         this.list.removeChild();
+            //     }
+            // }
 
             for(i=0; i < this.listSize; i++ ){
                 this.listNumber++;
