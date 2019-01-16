@@ -1,0 +1,331 @@
+<html>
+    <script src="https://unpkg.com/vue@2.5.21/dist/vue.js" type="text/javascript"></script>
+    <title>Vue Sandbox</title>
+    <body>
+        <div id="root" class="grid-layout">
+            <section></section>
+            <main>
+                <h1>Adam's Vue Guidebook & Sandbox</h1>
+                <p>Reference video course can be found on Plurasight <a href="https://app.pluralsight.com/player?course=vuejs-getting-started"><b>here</b></a></p>
+                <div v-once>{{once}}</div> <!-- v-once directive tells virtual dome to skip updating, & helps to optimize Vue performance -->
+                <h3>Inject HTML from js to element</h3>
+                <div v-html="myHtml"></div>  <!-- v-html directive outputs binding as HTML - can be a security risk if dynamically generated -->
+                <h3>Pass a class from js to element</h3>
+                <h3 v-bind:class="doubleBlue">Double Blue!</h3> <!-- v-bind is required for binding a  -->
+
+                <h2>Conditional binding via a bool, and image source binding</h2>
+                <!-- One way to conditionally apply a css class -->
+                <h3 v-bind:class="{'pinkBox' : boolean }">Pink Box</h3>
+                <h3 v-bind:style="cokeStyle">Binding style.</h3> <!-- v-bind is required for binding a  -->
+                <img v-bind:style="cokeImage" :src="imagePointer" />  <!-- v-bind directive outputs binding as HTML - can be a security risk if dynamically generated -->
+                <br />
+
+                <h2>Binding With Forms</h2>
+                <!-- COLLECTING DATA VIA THE V-MODEL DIRECTIVE -->
+                <input v-model="userInput" placeholder="I replicate your input" />
+                <span>You input the following: {{userInput}}</span>
+                <br/><br />
+                <textarea v-model="textArea"></textarea>
+                <span>The text area contains the following: {{textArea}}</span>
+                <br />
+                <div id=pain-box class="width-box">
+                    <div class="pain-area">
+                        <label for="pain-arms">Arms</label>
+                        <input 
+                            id="pain-arms"
+                            type="checkbox" 
+                            value="Arms"
+                            v-model="pain"
+                        />
+                    </div>
+                    <div class="pain-area">
+                        <label for="pain-legs">Legs</label>
+                        <input 
+                            type="checkbox" 
+                            value="Legs"
+                            v-model="pain"
+                        />
+
+                    </div>
+                    <div class="pain-area">
+                        <label for="pain-torso">Torso</label>
+                        <input 
+                            type="checkbox" 
+                            value="Torso"
+                            v-model="pain"
+                        />
+                    </div>
+                    <div class="pain-area">
+                        <label for="pain-torso">Neck or Head</label>
+                        <input 
+                            type="checkbox" 
+                            value="Head or neck"
+                            v-model="pain"
+                        />
+                    </div>
+                </div>
+                <br />
+                <span>
+                    You feel pain in the following areas: {{pain}}
+                </span>
+                <br /><br />
+                <div class="width-box">
+                    <div class="radio-option">
+                        <label>Male</label>
+                        <input 
+                        type="radio"
+                        value="Male"
+                        v-model="gender"
+                        />
+                    </div>
+                    <div class="radio-option">
+                        <label>Female</label>
+                        <input 
+                        type="radio"
+                        value="Female"
+                        v-model="gender"
+                        />
+                    </div>
+                    <div class="radio-option">
+                        <label>Transgender</label>
+                        <input 
+                        type="radio"
+                        value="Transgender"
+                        v-model="gender"
+                        />
+                    </div>
+                    <div class="radio-option">
+                        <label>Other</label>
+                        <input 
+                        type="radio"
+                        value="Other"
+                        v-model="gender"
+                        />
+                    </div>
+                </div>
+                <p>Selected {{gender}}</p>
+                <br />
+                <!-- A select can have it's binding declaired within it, which binds its child options to the data -->
+                <select 
+                    v-model="dropdown"
+                >
+                    <option value="Never">Never</option>
+                    <option value="Sometimes">Sometimes</option>
+                    <option value="Often">Often</option>
+                </select>
+                <p>Dropdown value: {{dropdown}}</p>
+
+                <p class="subtitle">Trim Modifier</p>
+                <!-- Built-in Data Modifiers, which are used to describe the behaviour of a binding, & which can be chained together -->
+                <input v-model.trim="trimmedInput" placeholder="Trim leading/trailing whitespace" /> <!-- .trim removes leading and trailing whitespace -->
+                <p>This is your input, trimmed: {{trimmedInput}}</p>
+
+                <p class="subtitle">Number Modifier</p>
+                <input v-model.number="numericInput" placeholder="I only accept numbers" /> <!-- .number attempts to use Javascript's parseFloat function on the input; it trims, and will work if at least the first character is a number -->
+                <p>This is your input, "numerified": {{numericInput}}</p>
+
+                <p class="subtitle">Lazy Loading Binding Values</p>
+                <!-- 
+                    onInput event: fires after each time input is modified (e.g., each time a new character is added)
+                    onChange event: fires when the element loses focus
+                -->
+                <input v-model.lazy="lazyBinding" placeholder="" /> <!-- .number attempts to use Javascript's parseFloat function; it trims and will work if at least the first character is a number -->
+                <p>I will lazily bind (i.e., update only once focus is lost) your input here: {{lazyBinding}}</p>
+
+                <h2>Responding to user events</h2>
+                <!-- Shorthand synatix for "v-on" is "@" -->
+                <button v-on:click="fillInOn">Fill above inputs (using the "v-on" directive)</button>
+                <button @click="fillInAt">Fill above inputs (using "@" directive)</button>
+                <br /><br />
+                <!-- EVENT MODIFIERS -->
+                <!-- event bubbling vs event capturing; be sure to check console logs as you click the following buttons-->
+                <!-- For event capturing (top to bottom event listening), the "capture" modifier must be added to the Vue directive -->
+                <p>Results logged in conosole</p>
+                <div class="width-box">
+                    <div @click="bubbleClick('parent')">
+                        <button @click="bubbleClick('child')">Event Bubbling</button>
+                        <p>Events propagate up from descendants to ancestor</p>
+                    </div>
+                    <div v-on:click.capture="captureClick('parent')">
+                        <button @click="captureClick('child')">Event Capturing</button>
+                        <p>Events propagate down from ancestor to descendants</p>
+                    </div>
+                    <div style="align-self: flex-start;">
+                        <button @click="clearText()">Clear</button>
+                    </div>
+                </div>
+                <br />
+                <div id="buttonOutput"></div>
+
+                <h2>Bypass default event behaviour with ".prevent" modifier</h2>
+                <p>v-on:click.prevent="myFunction" OR @click.prevent="myFunction" will stop the default action of the element and instead run the provided function. Check console logs.</p>
+                <button style="" type="submit" @click.prevent="logThisInstead">Prevent my default</button>
+
+                <h2>"Stop" modifier for halting event propagation (e.g., bubbling)</h2>
+                <p>Can help performance. Makes code more predictable. Three elements call function "logMe()" on click, but propagation is halted so it only runs twice due to ".stop". Check console logs.</p>
+                <section id="grandParent" @click="logMe()">
+                    <div id="parent" @click.stop="logMe()"> <!-- ".stop" will prevent grandParent from triggering its @click  -->
+                        <button id="button"  @click="logMe()" style="">Click me</button>
+                    </div>
+                </section>
+
+                <h2>"Self" triggers an event on an element only if that element is the origintator of the event</h2>
+                <p>It is essentially a strong conditonal: run this event/function <b>if and only if</b> the event started on this element; 
+                    if the event has reached this element via propagation (e.g., through capturing or bubbling as discsused above), then simply skip it!</p>
+
+                <h2>"Once" allows the event to be run one time, and one time only</h2>
+                <p>Although the specific element's event can only be triggered once, event propagation is still handled regularly. 
+                    In other words, although the event for the child can only trigger once, the event will still always propagate to ancestors/descendents.</p>
+
+                <p>These modifiers can be chained together. For example, ".stop.self" will both prevent the event from being propagated outward from the element, and will also ensure the event is not caused by propagation from another element</p>
+                <img :src="modifierChart" />
+
+                <h2>Key Modifiers</h2>
+                <!-- Can run multiple event handlers on the same element (e.g., both @keyup && @keyup.enter), and the order matters -->
+                <button 
+                    id="focus-button"
+                    @keyup.enter="pressEnter($event)"
+                    @keyup.nine="pressNine()"
+                    @keyup.eight="pressEight()"
+                >Press enter while I have focus</button>
+                <img :src="keyModifiersChart" />
+                <p>Custom key modifiers allows for binding a word, any word, to a keyboard key code. For example, key code "57", which is for the number "9" on the keyboard is bound to the word "nine'. Try pressing "9" when the button has focus. "8" works, too</p>
+                <!-- Vue.config exposes configuration details -->
+
+                <h2>Mouse Modifiers</h2>
+                <p>mouseup and mousedown can be modified with "left", "middle", "right"</p>
+                <div class="mouse-button" @mousedown.stop="anyMouseDown()">Any mousedown will be recorded: <span id="anyMouseOutput"></span></div>
+                <br />
+                <div class="mouse-button" @mousedown.right.stop="rightMouseDown()">Only right mousedown will be recorded: <span id="rightMouseOutput"></span></div>
+                <br />
+                <div class="mouse-button" v-on:contextmenu.prevent="customMenu($event)">Right click for custom menu</div>
+                <ul id="customMenuList"
+                    v-if="showCustomMenu"
+                    v-bind:style="{top:top, left: left}"
+                    v-on:blur="closeCustomMenu"
+                >
+                    <li>
+                        Option One
+                    </li>
+                    <li>
+                        Option Two
+                    </li>
+                </ul>
+                <br />
+                <button @click="clear">Clear</button>
+                <br />
+                <h2>Special Key Modifiers</h2>
+                <img :src="specialKeyChart" />
+                <br />
+                <button @keyup.ctrl.enter="ctrlEnter">ctrl + enter</button>
+
+                <h2>Conditional Rendering & Rendering of Lists</h2>
+                <p>V-cloak, along with the appropriate css, can hide the placeholder for a variable from showing up when the Vue app is taking a long time to load (e.g., over a slow network connection</p>
+                <p v-cloak>I'm only visible when the instance of Vue has fully loaded</p>
+                <h3>Conditional rendering directives</h3>
+                <p>v-if & v-else evalues truthiness of assertion. Note, each time the value changes, <b>the element and all children are destoryed and re-created</b> 
+                    which can affect performance. Also, the element is not automatically rendered with v-fi (it's only rendered when the assertion evaluates to truthy)</p>
+                <button 
+                    class="toggle-button"
+                    @click="toggleValue"
+                    v-if="(toggler % 2 == 0)">
+                    Even {{toggler}}
+                </button>
+                <button 
+                    class="toggle-button"
+                    @click="toggleValue"
+                    v-if="(toggler % 2 == 1)">
+                    Odd {{toggler}}
+                </button>
+                <!-- v-show sets the CSS display property, as opposed to junking the element; and the element is always rendered -->
+                <span v-if="(toggler % 2 == 1)">Using v-show, I only show when the toggler is set to 'odd'</span>
+                <p>For content that needs to be toggled on/off continually, v-show is best. If the element never changes after being shown, v-if is best (as it may not be rendered at runtime, and so can incrase efficiency)</p>
+                <h3>Render Lists Via Looping (v-for)</h3>
+                <input v-model.number="listSize" @keyup="generateList()" placeholder="enter a number"/>
+                <ul id="dynamicList" v-show="listSize > 0">
+                    <li v-for="num in list">Dynamically-generated list item</li>
+                </ul>
+            </main>
+            <section></section>
+        </div>
+    </body>
+    <script src="src/app.js" type="text/javascript"></script>
+</html>
+
+<style>
+button{
+    text-align: center;
+    border: 2px solid purple;
+    background-color: white;
+    padding: 20px;;
+    border-radius: 10px;
+}
+button:hover{
+    cursor: pointer;
+    border: 2px solid skyblue;
+}
+button:focus{
+    background-color: white !important;
+    color: black !important;
+    border: 2px solid skyblue;
+    outline:0;
+}
+button:nth-child(odd){
+
+}
+.doubleBlue{
+    color: blue;
+    border: 1px solid blue;
+}
+.pinkBox{
+    width: 200px;
+    height: 200px;
+    background: pink;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.width-box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+.pain-areas input{
+    color: red;
+}
+.subtitle{
+    font-weight: 900;
+    font-size: 16px;
+}
+.parentFirst{
+    color: skyblue;
+}
+.childFirst{
+    color: pink;
+}
+.mouse-button{
+    padding: 10px;
+    border: 1px solid blue;
+    max-width: 50%;
+}
+.grid-layout{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 10px;
+}
+[v-clock]{
+    display: none;
+}
+.toggle-button{
+    background-color: white;
+    color: darkblue;
+    padding: 1%;
+    font-weight: 900;
+}
+.toggle-button:hover{
+    cursor: pointer;
+}
+</style>
