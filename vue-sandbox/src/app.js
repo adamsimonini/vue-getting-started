@@ -46,6 +46,21 @@ var app = new Vue({
             {name: 'Siamese', color: 'blue'},
             {name: 'Southern Platyfish', color: 'teal'},
         ],
+        locations: [
+            {   
+                country: 'Canada',
+                majorCities: ['Toronto', 'Montreal', 'Vancouver']
+            },
+            {   
+                country: 'Mexico',
+                majorCities: ['Mexico City', 'Ecatepec', 'Guadalajara']
+            },
+            {   
+                country: 'USA',
+                majorCities: ['New York', 'Los Angeles', 'Chicago']
+            },
+        ],
+        medal: ['&#x1f947;', '&#x1f948', '&#x1f949'],
     },
     methods: {
         fillInOn: function(e){

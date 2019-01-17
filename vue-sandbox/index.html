@@ -250,12 +250,24 @@
                 </ol>
 
                 <!-- v-for to generate HTML from an array of objects -->
+                <h3>Fish list with css grid</h3>
                 <div class="fishBox" v-for="(fish, i) in fishes">
                     <span>{{i}}</span>
                     <span class="fishIcon">&#x1f41f;</span>
                     <span>Name: <span class="fishName">{{fish.name}}</span></span>
                     <span v-bind:style="{'background-color': fish.color}" class="fishColor">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <!-- v-binding style causes the style to become jabascript that accepts two parameters ('style to be changed', 'value of the change') -->
+                </div>
+
+                <h3>Cities list with css flexbox</h3>
+                <div id="majorCities">
+                    <div class="countries" v-for="location in locations">
+                        <span class="countryName">{{location.country}}</span>
+                        <div class="cityList">
+                            <span class="cityName" v-for="(majorCity, i) in location.majorCities">{{i + 1}} {{majorCity}} <span v-html="medal[i]"></span></span>
+                        </div>
+                        <!-- v-binding style causes the style to become jabascript that accepts two parameters ('style to be changed', 'value of the change') -->
+                    </div>
                 </div>
 
             </main>
@@ -356,8 +368,16 @@ button:nth-child(odd){
     grid-gap: 1px;
     max-width: 300px
 }
-}
 .fishName{
     font-weight: 600;
+}
+.cityList{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #f9f9f9;
+}
+.countryName{
+    font-weight: 900;
 }
 </style>
