@@ -242,9 +242,21 @@
                 <p>For content that needs to be toggled on/off continually, v-show is best. If the element never changes after being shown, v-if is best (as it may not be rendered at runtime, and so can incrase efficiency)</p>
                 <h3>Render Lists Via Looping (v-for)</h3>
                 <input type="number" v-model.number="listSize" @keyup="generateList()" placeholder="enter a number"/>
+                <br /><br />
                 <ol id="dynamicList" v-show="listSize > 0">
-                    <li v-for="num in list">Dynamically-generated list item</li>
+                    <li v-for="num in list">
+                        <= list number | index number => {{num}}
+                    </li>
                 </ol>
+
+                <!-- v-for to generate HTML from an array of objects -->
+                <div class="fishBox" v-for="fish in fishes">
+                    <span class="fishIcon">&#x1f41f;</span>
+                    <span>Name: <span class="fishName">{{fish.name}}</span></span>
+                    <span v-bind:style="{'background-color': fish.color}" class="fishColor">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <!-- v-binding style causes the style to become jabascript that accepts two parameters ('style to be changed', 'value of the change') -->
+                </div>
+
             </main>
             <section></section>
         </div>
@@ -327,5 +339,24 @@ button:nth-child(odd){
 }
 .toggle-button:hover{
     cursor: pointer;
+}
+.fishIcon{
+
+}
+.fishColor{
+    width: 30px;
+    height: 30px;
+    background-color: orange;
+}
+.fishBox{
+    display: grid;
+    grid-template-columns: 30px 1fr 40px;
+    grid-template-rows: auto;
+    grid-gap: 1px;
+    max-width: 300px
+}
+}
+.fishName{
+    font-weight: 600;
 }
 </style>

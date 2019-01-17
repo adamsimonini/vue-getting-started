@@ -38,6 +38,14 @@ var app = new Vue({
         listSize: 0,
         listNumber: 0,
         list: [],
+        fishes: [
+            {name: 'Goldfish', color: 'orange'},
+            {name: 'Deepwater Redfish', color: 'pink'},
+            {name: 'Carp', color: 'yellow'},
+            {name: 'Iridescent Shark', color: 'black'},
+            {name: 'Siamese', color: 'blue'},
+            {name: 'Southern Platyfish', color: 'teal'},
+        ],
     },
     methods: {
         fillInOn: function(e){
@@ -122,7 +130,7 @@ var app = new Vue({
 
             for(i=0; i < this.listSize; i++ ){
                 this.listNumber++;
-                this.list[i] = i+1;
+                this.list[i] = i;
             }
         },
     }
