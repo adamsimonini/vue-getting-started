@@ -238,7 +238,7 @@
                     Odd {{toggler}}
                 </button>
                 <!-- v-show sets the CSS display property, as opposed to junking the element; and the element is always rendered -->
-                <span v-if="(toggler % 2 == 1)">Using v-show, I only show when the toggler is set to 'odd'</span>
+                <span v-show="(toggler % 2 == 1)">Using v-show, I only show when the toggler is set to 'odd'</span>
                 <p>For content that needs to be toggled on/off continually, v-show is best. If the element never changes after being shown, v-if is best (as it may not be rendered at runtime, and so can incrase efficiency)</p>
                 <h3>Render Lists Via Looping (v-for)</h3>
                 <input type="number" v-model.number="listSize" @keyup="generateList()" placeholder="enter a number"/>
@@ -250,7 +250,8 @@
                 </ol>
 
                 <!-- v-for to generate HTML from an array of objects -->
-                <div class="fishBox" v-for="fish in fishes">
+                <div class="fishBox" v-for="(fish, i) in fishes">
+                    <span>{{i}}</span>
                     <span class="fishIcon">&#x1f41f;</span>
                     <span>Name: <span class="fishName">{{fish.name}}</span></span>
                     <span v-bind:style="{'background-color': fish.color}" class="fishColor">&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -350,7 +351,7 @@ button:nth-child(odd){
 }
 .fishBox{
     display: grid;
-    grid-template-columns: 30px 1fr 40px;
+    grid-template-columns: 20px 30px 1fr 30px;
     grid-template-rows: auto;
     grid-gap: 1px;
     max-width: 300px
